@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
 	public void SelectBoardPiece(GameObject gameObjBoardPiece)
 	{
+		
 		if (stopGame)
 			return;
 
