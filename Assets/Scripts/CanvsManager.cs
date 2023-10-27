@@ -49,8 +49,12 @@ public class CanvsManager : MonoBehaviour
     {           
         PointerEventData bEvent = (PointerEventData)baseEvent;
         print(bEvent.pointerClick.gameObject.name);
-        gameManager.SelectBoardPiece(bEvent.pointerClick.gameObject);
-        
+        //gameManager.SelectBoardPiece(bEvent.pointerClick.gameObject);
+        //i want to call the NetworkManager and call the new method NotifySelectBoardPiece to inform#
+        //everyone that this boardpiece was selected
+        GameObject.Find("Scripts").GetComponent<NetworkManager>()
+            .NotifySelectBoardPiece(bEvent.pointerClick.gameObject);
+
     }
 
     public void BoardPaint(GameObject gameObjBoardPiece)

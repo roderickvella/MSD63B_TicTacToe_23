@@ -130,6 +130,23 @@ public class Lobby : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(roomName);
     }
 
+    public override void OnJoinedRoom()
+    {
+        PanelLobby.SetActive(false);
+        PanelWaitingForPlayers.SetActive(true);
+        print("OnJoinedRoom");
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        //this means if in the current room there are 2 players,then we can start the game
+        //IMP! do not forget to add the scenes in the build settings for this to work
+      if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            PhotonNetwork.LoadLevel("MainGame");
+        }
+    }
+
     private void OnGUI()
     {
         Status.GetComponent<TextMeshProUGUI>().text = "Status:" + PhotonNetwork.NetworkClientState.ToString();
