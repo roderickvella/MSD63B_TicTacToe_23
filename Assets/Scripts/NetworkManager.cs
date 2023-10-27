@@ -20,13 +20,20 @@ public class NetworkManager : MonoBehaviour, IPunObservable
 
     public void NotifySelectBoardPiece(GameObject gameObject)
     {
-        photonView.RPC("RPC_NotifySelectedBoardPiece", RpcTarget.All, gameObject.name);
+        if((int)GetComponent<GameManager>().currentActivePlayer.id == 
+            PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            photonView.RPC("RPC_NotifySelectedBoardPiece", RpcTarget.All, gameObject.name);
+
+        }
+     
     }
 
     [PunRPC]
     public void RPC_NotifySelectedBoardPiece(string gameObjectName)
     {
         print("received message:" + gameObjectName);
+        GetComponent<GameManager>().SelectBoardPiece(GameObject.Find(gameObjectName));
     }
 
 
